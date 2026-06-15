@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Concepts Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>ML Hub</h2>
+            <ul>
+                <li><a href="#ch1" class="active">Ch 1: Intro to ML</a></li>
+                <li><a href="#ch2">Ch 2: Supervised Learning</a></li>
+                <li><a href="#ch6">Ch 6: CNNs</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <section id="ch1" class="concept-section">
+                <h1>Chapter 1: Introduction to Machine Learning</h1>
+                
+                <div class="card">
+                    <h3>1.1 & 1.2 The AI, ML, and DL Landscape</h3>
+                    <p><strong>Machine Learning (ML)</strong> is a subset of Artificial Intelligence (AI) that allows systems to learn from data without being explicitly programmed.</p>
+                    <div class="venn-diagram">
+                        <div class="venn-circle ai">AI <div class="venn-circle ml">ML <div class="venn-circle dl">DL</div></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>1.3 & 1.4 ML Systems & Ecosystems</h3>
+                    <p>An ML system consists of <strong>Data Pipelines, Models, and Compute Infrastructure</strong>. Data concerns include data quality, bias, privacy, and data drift.</p>
+                </div>
+
+                <div class="card">
+                    <h3>1.5 & 1.6 Overfitting, Underfitting & Bias-Variance Trade-Off</h3>
+                    <p>Click the buttons below to see how model complexity affects error types:</p>
+                    <div class="interactive-zone">
+                        <button class="btn" onclick="toggleTradeoff('low')">Low Complexity</button>
+                        <button class="btn" onclick="toggleTradeoff('high')">High Complexity</button>
+                        <div id="tradeoff-display" class="display-box">
+                            Select a complexity level to view its characteristics.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ch2" class="concept-section hidden">
+                <h1>Chapter 2: Supervised Learning</h1>
+                
+                <div class="card">
+                    <h3>2.1 Parametric vs. Nonparametric</h3>
+                    <ul>
+                        <li><strong>Parametric:</strong> Assumes a fixed form for the model (e.g., Linear Regression). Fast but rigid.</li>
+                        <li><strong>Nonparametric:</strong> Flexible; the number of parameters grows with data (e.g., KNN, Decision Trees).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>2.2 Regression</h3>
+                    <p>Predicts continuous values. Uses loss functions like Mean Squared Error (MSE) to optimize parameter estimation.</p>
+                </div>
+
+                <div class="card">
+                    <h3>2.3 Classification Algorithms</h3>
+                    <div class="grid">
+                        <div class="grid-item"><strong>Logistic Regression:</strong> Binary output probability.</div>
+                        <div class="grid-item"><strong>Naïve Bayes:</strong> Probabilistic classification using Bayes' Theorem.</div>
+                        <div class="grid-item"><strong>K-Nearest Neighbors:</strong> Instance-based voting system.</div>
+                        <div class="grid-item"><strong>Random Forest:</strong> Bootstrap aggregation (bagging) of trees.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ch6" class="concept-section hidden">
+                <h1>Chapter 6: Convolutional Neural Networks (CNNs)</h1>
+                
+                <div class="card">
+                    <h3>6.1 & 6.2 Core Components</h3>
+                    <p>CNNs utilize spatial structure, making them superior to standard MLPs for vision tasks.</p>
+                    <ul>
+                        <li><strong>Convolution:</strong> Feature extraction using filters.</li>
+                        <li><strong>Pooling:</strong> Reduces spatial dimensions (Max, Average).</li>
+                        <li><strong>Padding:</strong> Keeps spatial sizing intact at borders.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>6.5 CNN Classic Architectures</h3>
+                    <p>Select an architecture to learn about its breakthrough:</p>
+                    <select id="arch-selector" class="dropdown">
+                        <option value="alex">AlexNet (2012)</option>
+                        <option value="vgg">VGG (2014)</option>
+                        <option value="resnet">ResNet (2015)</option>
+                    </select>
+                    <div id="arch-desc" class="display-box margin-top">
+                        AlexNet popularized deep learning using ReLU and GPUs.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
