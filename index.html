@@ -1,107 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning Concepts Hub</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML Notes - Chapters 1, 6, 7</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-    <div class="container">
-        <nav class="sidebar">
-            <h2>ML Hub</h2>
-            <ul>
-                <li><a href="#ch1" class="active">Ch 1: Intro to ML</a></li>
-                <li><a href="#ch2">Ch 2: Supervised Learning</a></li>
-                <li><a href="#ch6">Ch 6: CNNs</a></li>
-            </ul>
-        </nav>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-brain"></i> ML Notes</h2>
+            <button class="close-btn" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#ch1" class="active"><i class="fas fa-robot"></i> Ch 1: Intro to ML</a></li>
+            <li><a href="#ch6"><i class="fas fa-network-wired"></i> Ch 6: CNNs</a></li>
+            <li><a href="#ch7"><i class="fas fa-arrow-right-arrow-left"></i> Ch 7: RNNs</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+        </div>
+    </nav>
 
-        <main class="content">
-            <section id="ch1" class="concept-section">
-                <h1>Chapter 1: Introduction to Machine Learning</h1>
-                
-                <div class="card">
-                    <h3>1.1 & 1.2 The AI, ML, and DL Landscape</h3>
-                    <p><strong>Machine Learning (ML)</strong> is a subset of Artificial Intelligence (AI) that allows systems to learn from data without being explicitly programmed.</p>
-                    <div class="venn-diagram">
-                        <div class="venn-circle ai">AI <div class="venn-circle ml">ML <div class="venn-circle dl">DL</div></div></div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="menu-btn" id="openSidebar"><i class="fas fa-bars"></i></button>
+            <h1>Machine Learning Notes</h1>
+            <div class="topbar-actions">
+                <button class="theme-toggle-icon" id="themeToggleIcon"><i class="fas fa-moon"></i></button>
+            </div>
+        </header>
+
+        <!-- Content Container -->
+        <div class="content">
+
+            <!-- ==================== CHAPTER 1 ==================== -->
+            <section id="ch1" class="chapter">
+                <h1 class="chapter-title"><span class="ch-badge">Ch 1</span> Introduction to Machine Learning</h1>
+                <p class="chapter-duration"><i class="far fa-clock"></i> 4 hours</p>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-cogs"></i> 1.1 What is Machine Learning?</h2>
+                    <p><strong>Machine Learning (ML)</strong> is a subset of Artificial Intelligence (AI) that enables systems to learn and improve from experience without being explicitly programmed. ML algorithms build mathematical models based on training data to make predictions or decisions.</p>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-sitemap"></i> 1.2 Difference: AI, ML, DL</h2>
+                    <div class="venn">
+                        <div class="venn-item"><strong>AI</strong> <span>Broadest field — machines mimicking human intelligence.</span></div>
+                        <div class="venn-item"><strong>ML</strong> <span>Subset of AI — systems that learn from data.</span></div>
+                        <div class="venn-item"><strong>DL</strong> <span>Subset of ML — uses neural networks with many layers.</span></div>
                     </div>
+                    <p><strong>Hierarchy:</strong> <span class="highlight">DL ⊂ ML ⊂ AI</span></p>
                 </div>
 
-                <div class="card">
-                    <h3>1.3 & 1.4 ML Systems & Ecosystems</h3>
-                    <p>An ML system consists of <strong>Data Pipelines, Models, and Compute Infrastructure</strong>. Data concerns include data quality, bias, privacy, and data drift.</p>
+                <div class="note-card">
+                    <h2><i class="fas fa-puzzle-piece"></i> 1.3 ML System & Components</h2>
+                    <ul>
+                        <li><strong>Data:</strong> Raw input (features & labels).</li>
+                        <li><strong>Feature Engineering:</strong> Transforming raw data into meaningful features.</li>
+                        <li><strong>Model:</strong> The algorithm (e.g., Neural Network, SVM).</li>
+                        <li><strong>Loss Function:</strong> Measures prediction error (e.g., MSE, Cross-Entropy).</li>
+                        <li><strong>Optimizer:</strong> Adjusts weights to minimize loss (e.g., SGD, Adam).</li>
+                        <li><strong>Evaluation:</strong> Metrics like accuracy, precision, recall.</li>
+                    </ul>
                 </div>
 
-                <div class="card">
-                    <h3>1.5 & 1.6 Overfitting, Underfitting & Bias-Variance Trade-Off</h3>
-                    <p>Click the buttons below to see how model complexity affects error types:</p>
-                    <div class="interactive-zone">
-                        <button class="btn" onclick="toggleTradeoff('low')">Low Complexity</button>
-                        <button class="btn" onclick="toggleTradeoff('high')">High Complexity</button>
-                        <div id="tradeoff-display" class="display-box">
-                            Select a complexity level to view its characteristics.
+                <div class="note-card">
+                    <h2><i class="fas fa-database"></i> 1.4 ML Ecosystem & Data Concerns</h2>
+                    <ul>
+                        <li><strong>Ecosystem:</strong> Data storage, compute (GPUs/TPUs), feature stores, model serving, monitoring.</li>
+                        <li><strong>Data Concerns:</strong>
+                            <ul>
+                                <li><strong>Quality:</strong> Missing values, noise, outliers.</li>
+                                <li><strong>Bias:</strong> Sampling bias, label bias.</li>
+                                <li><strong>Drift:</strong> Data drift (input changes) and concept drift (target changes).</li>
+                                <li><strong>Privacy:</strong> GDPR, anonymization.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-balance-scale"></i> 1.5 Overfitting & Underfitting</h2>
+                    <div class="two-col">
+                        <div class="col">
+                            <h4>Overfitting</h4>
+                            <ul>
+                                <li>Model learns training data <em>too well</em>, including noise.</li>
+                                <li><strong>High Variance</strong></li>
+                                <li>Poor generalization to test data.</li>
+                                <li><strong>Fixes:</strong> More data, regularization, dropout, simpler model.</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>Underfitting</h4>
+                            <ul>
+                                <li>Model is <em>too simple</em> to capture patterns.</li>
+                                <li><strong>High Bias</strong></li>
+                                <li>Poor performance on both train and test.</li>
+                                <li><strong>Fixes:</strong> More complex model, better features, longer training.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <section id="ch2" class="concept-section hidden">
-                <h1>Chapter 2: Supervised Learning</h1>
-                
-                <div class="card">
-                    <h3>2.1 Parametric vs. Nonparametric</h3>
+                <div class="note-card">
+                    <h2><i class="fas fa-chart-line"></i> 1.6 The Bias-Variance Trade-Off</h2>
+                    <p>As model complexity increases:</p>
                     <ul>
-                        <li><strong>Parametric:</strong> Assumes a fixed form for the model (e.g., Linear Regression). Fast but rigid.</li>
-                        <li><strong>Nonparametric:</strong> Flexible; the number of parameters grows with data (e.g., KNN, Decision Trees).</li>
+                        <li><strong>Bias</strong> decreases (model becomes more flexible).</li>
+                        <li><strong>Variance</strong> increases (model becomes sensitive to training data).</li>
                     </ul>
-                </div>
-
-                <div class="card">
-                    <h3>2.2 Regression</h3>
-                    <p>Predicts continuous values. Uses loss functions like Mean Squared Error (MSE) to optimize parameter estimation.</p>
-                </div>
-
-                <div class="card">
-                    <h3>2.3 Classification Algorithms</h3>
-                    <div class="grid">
-                        <div class="grid-item"><strong>Logistic Regression:</strong> Binary output probability.</div>
-                        <div class="grid-item"><strong>Naïve Bayes:</strong> Probabilistic classification using Bayes' Theorem.</div>
-                        <div class="grid-item"><strong>K-Nearest Neighbors:</strong> Instance-based voting system.</div>
-                        <div class="grid-item"><strong>Random Forest:</strong> Bootstrap aggregation (bagging) of trees.</div>
+                    <p>The goal is to find the <strong>sweet spot</strong> that minimizes total error.</p>
+                    <div class="code-block">
+                        <pre>Total Error = Bias² + Variance + Irreducible Error</pre>
                     </div>
                 </div>
             </section>
 
-            <section id="ch6" class="concept-section hidden">
-                <h1>Chapter 6: Convolutional Neural Networks (CNNs)</h1>
-                
-                <div class="card">
-                    <h3>6.1 & 6.2 Core Components</h3>
-                    <p>CNNs utilize spatial structure, making them superior to standard MLPs for vision tasks.</p>
+            <!-- ==================== CHAPTER 6 ==================== -->
+            <section id="ch6" class="chapter">
+                <h1 class="chapter-title"><span class="ch-badge">Ch 6</span> Convolutional Neural Networks (CNNs)</h1>
+                <p class="chapter-duration"><i class="far fa-clock"></i> 8 hours</p>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-eye"></i> 6.1 Introduction, Properties, Need, CNN vs MLP</h2>
+                    <p><strong>CNN:</strong> A specialized neural network for processing grid-like data (images, videos).</p>
+                    <div class="two-col">
+                        <div class="col">
+                            <h4>Properties of CNN</h4>
+                            <ul>
+                                <li><strong>Local Connectivity:</strong> Neurons connect to local regions.</li>
+                                <li><strong>Weight Sharing:</strong> Same filter weights across the image.</li>
+                                <li><strong>Translation Invariance:</strong> Detects features regardless of position.</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>CNN vs MLP</h4>
+                            <ul>
+                                <li><strong>MLP:</strong> Fully connected, huge parameters for images.</li>
+                                <li><strong>CNN:</strong> Fewer parameters, exploits spatial structure.</li>
+                                <li>CNN is <strong>more efficient</strong> and <strong>more accurate</strong> for vision tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-crop-alt"></i> 6.2 Convolution, Pooling, Padding, Flattening, FC Layer</h2>
                     <ul>
-                        <li><strong>Convolution:</strong> Feature extraction using filters.</li>
-                        <li><strong>Pooling:</strong> Reduces spatial dimensions (Max, Average).</li>
-                        <li><strong>Padding:</strong> Keeps spatial sizing intact at borders.</li>
+                        <li><strong>Convolution:</strong> Sliding a filter (kernel) over input to produce feature maps.</li>
+                        <li><strong>Pooling:</strong> Downsampling to reduce dimensions.
+                            <ul>
+                                <li><strong>Max Pooling:</strong> Takes maximum value in each region.</li>
+                                <li><strong>Average Pooling:</strong> Takes average value.</li>
+                                <li><strong>Global Pooling:</strong> Reduces each feature map to a single value.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Padding:</strong> Adding zeros around input. <em>Same padding</em> preserves dimensions.</li>
+                        <li><strong>Stride:</strong> Steps the filter moves.</li>
+                        <li><strong>Flattening:</strong> Converts 2D feature maps to 1D vector.</li>
+                        <li><strong>Fully Connected (FC) Layer:</strong> Dense layer for final classification.</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre>Output Size = ((Input - Filter + 2*Padding) / Stride) + 1</pre>
+                    </div>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-sync-alt"></i> 6.3 Training a Network, Training Cycle, One-Hot Encoding</h2>
+                    <ul>
+                        <li><strong>Training Cycle:</strong>
+                            <ol>
+                                <li>Forward pass → compute loss.</li>
+                                <li>Backward pass → compute gradients.</li>
+                                <li>Update weights (optimizer).</li>
+                            </ol>
+                        </li>
+                        <li><strong>One-Hot Encoding:</strong> Converts class labels into binary vectors (e.g., class 3 of 5 → [0,0,1,0,0]). Used with cross-entropy loss.</li>
+                        <li><strong>Batch Size:</strong> Number of samples per update. <strong>Epoch:</strong> One full pass through the dataset.</li>
                     </ul>
                 </div>
 
-                <div class="card">
-                    <h3>6.5 CNN Classic Architectures</h3>
-                    <p>Select an architecture to learn about its breakthrough:</p>
-                    <select id="arch-selector" class="dropdown">
-                        <option value="alex">AlexNet (2012)</option>
-                        <option value="vgg">VGG (2014)</option>
-                        <option value="resnet">ResNet (2015)</option>
-                    </select>
-                    <div id="arch-desc" class="display-box margin-top">
-                        AlexNet popularized deep learning using ReLU and GPUs.
+                <div class="note-card">
+                    <h2><i class="fas fa-arrow-trend-up"></i> 6.4 CNN Forward & Backward Propagation</h2>
+                    <ul>
+                        <li><strong>Forward:</strong> Input → Convolution → Activation (ReLU) → Pooling → ... → FC → Softmax → Output.</li>
+                        <li><strong>Backward:</strong> Gradients flow backward through FC, pooling, and convolution layers using the chain rule.</li>
+                        <li>Convolution backprop involves flipping the kernel (transposed convolution).</li>
+                    </ul>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-landmark"></i> 6.5 CNN Architectures</h2>
+                    <div class="arch-grid">
+                        <div class="arch-item"><strong>AlexNet</strong> (2012) — Pioneered deep CNNs; used ReLU, dropout.</div>
+                        <div class="arch-item"><strong>VGG</strong> (2014) — Simple, uniform 3x3 convolutions, very deep (16-19 layers).</div>
+                        <div class="arch-item"><strong>GoogLeNet</strong> (2014) — Inception modules with parallel filters; efficient.</div>
+                        <div class="arch-item"><strong>ResNet</strong> (2015) — Skip connections (residual blocks) enable 100+ layers.</div>
+                        <div class="arch-item"><strong>DenseNet</strong> (2016) — Each layer connects to all previous layers; encourages feature reuse.</div>
                     </div>
                 </div>
             </section>
-        </main>
+
+            <!-- ==================== CHAPTER 7 ==================== -->
+            <section id="ch7" class="chapter">
+                <h1 class="chapter-title"><span class="ch-badge">Ch 7</span> Recurrent Neural Networks (RNNs)</h1>
+                <p class="chapter-duration"><i class="far fa-clock"></i> 6 hours</p>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-rotate-left"></i> 7.1 Introduction to RNNs</h2>
+                    <p><strong>RNN:</strong> Neural networks designed for sequential data where order matters. They have a <strong>hidden state</strong> that acts as a memory of past inputs.</p>
+                    <p>Unlike feedforward networks, RNNs share weights across time steps, making them parameter-efficient for sequences.</p>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-list-ol"></i> 7.2 Sequence Modeling</h2>
+                    <p>Sequence modeling involves predicting the next element(s) in a sequence.</p>
+                    <div class="two-col">
+                        <div class="col">
+                            <h4>Architecture Types</h4>
+                            <ul>
+                                <li><strong>Many-to-One:</strong> Sequence → single output (e.g., sentiment analysis).</li>
+                                <li><strong>One-to-Many:</strong> Single input → sequence (e.g., image captioning).</li>
+                                <li><strong>Many-to-Many:</strong> Sequence → sequence (e.g., language translation).</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>Key Concepts</h4>
+                            <ul>
+                                <li><strong>Hidden State (hₜ):</strong> Summary of sequence up to time t.</li>
+                                <li><strong>hₜ = f(Wₓₕ·xₜ + Wₕₕ·hₜ₋₁ + b)</strong></li>
+                                <li>Training uses <strong>Backpropagation Through Time (BPTT)</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-microchip"></i> 7.3 Vanilla RNN, LSTM, GRU</h2>
+                    <div class="three-col">
+                        <div class="col">
+                            <h4>Vanilla RNN</h4>
+                            <ul>
+                                <li>Simple recurrent connection.</li>
+                                <li><strong>Problem:</strong> Vanishing / exploding gradients.</li>
+                                <li>Cannot capture long-range dependencies.</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>LSTM</h4>
+                            <ul>
+                                <li>3 gates: <strong>Forget, Input, Output</strong>.</li>
+                                <li>Has <strong>cell state (cₜ)</strong> and hidden state (hₜ).</li>
+                                <li>Can remember information for long periods.</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4>GRU</h4>
+                            <ul>
+                                <li>2 gates: <strong>Update, Reset</strong>.</li>
+                                <li>Simpler than LSTM (no separate cell state).</li>
+                                <li>Performs similarly to LSTM with fewer parameters.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-arrows-left-right"></i> 7.4 Bi-directional RNNs</h2>
+                    <p>Bi-directional RNNs process sequences in both forward and backward directions using two hidden states that are concatenated.</p>
+                    <ul>
+                        <li><strong>Use Case:</strong> Tasks where both past and future context are needed (e.g., NER, speech recognition).</li>
+                        <li><strong>Not suitable</strong> for real-time streaming where future is unknown.</li>
+                    </ul>
+                </div>
+
+                <div class="note-card">
+                    <h2><i class="fas fa-captioning"></i> 7.5 Applications: Language Translation & Captioning</h2>
+                    <div class="two-col">
+                        <div class="col">
+                            <h4><i class="fas fa-language"></i> Language Translation</h4>
+                            <ul>
+                                <li><strong>Sequence-to-Sequence (Seq2Seq)</strong> architecture.</li>
+                                <li>Encoder RNN → context vector → Decoder RNN.</li>
+                                <li>Often uses <strong>Attention</strong> to improve performance.</li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h4><i class="fas fa-image"></i> Image Captioning</h4>
+                            <ul>
+                                <li>CNN extracts image features (encoder).</li>
+                                <li>RNN/LSTM generates caption (decoder).</li>
+                                <li><strong>One-to-Many</strong> architecture: image → sequence of words.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-card summary-card">
+                    <h2><i class="fas fa-graduation-cap"></i> Summary</h2>
+                    <p><strong>CNNs</strong> excel at spatial data (images) with weight sharing and local connectivity.</p>
+                    <p><strong>RNNs</strong> excel at sequential data (text, time series) with hidden state memory.</p>
+                    <p><strong>LSTMs & GRUs</strong> solve the vanishing gradient problem of vanilla RNNs.</p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                <p>&copy; 2026 ML Study Notes. Built with <i class="fas fa-heart" style="color:#e74c3c;"></i></p>
+            </footer>
+
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
