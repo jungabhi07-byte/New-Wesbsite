@@ -1,37 +1,143 @@
-// SPA (Single Page Application) Sidebar Tab Switching
-document.querySelectorAll('.sidebar ul li a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Update active class on nav links
-        document.querySelectorAll('.sidebar ul li a').forEach(item => item.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Hide all sections and reveal target section
-        document.querySelectorAll('.concept-section').forEach(section => section.classList.add('hidden'));
-        const targetSection = this.getAttribute('href');
-        document.querySelector(targetSection).classList.remove('hidden');
+// ============================================================
+// 1. SIDEBAR TOGGLE (Mobile)
+// ============================================================
+const sidebar = document.getElementById('sidebar');
+const openBtn = document.getElementById('openSidebar');
+const closeBtn = document.getElementById('closeSidebar');
+
+if (openBtn) {
+    openBtn.addEventListener('click', () => {
+        sidebar.classList.add('open');
     });
+}
+
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+    });
+}
+
+// Close sidebar when clicking outside (on mobile)
+document.addEventListener('click', (e) => {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile && sidebar.classList.contains('open')) {
+        const isClickInside = sidebar.contains(e.target);
+        const isClickOnMenuBtn = openBtn && openBtn.contains(e.target);
+        if (!isClickInside && !isClickOnMenuBtn) {
+            sidebar.classList.remove('open');
+        }
+    }
 });
 
-// Chapter 1 Interactive Dynamic Elements: Bias-Variance Toggle
-function toggleTradeoff(complexity) {
-    const display = document.getElementById('tradeoff-display');
-    if (complexity === 'low') {
-        display.innerHTML = `<strong>Underfitting Environment:</strong> <br> High Bias, Low Variance. The model is too simple to grasp the patterns. Training and Testing errors are both high.`;
-    } else if (complexity === 'high') {
-        display.innerHTML = `<strong>Overfitting Environment:</strong> <br> Low Bias, High Variance. The model memorizes noise. Training error is minimal, but Testing error peaks sharply.`;
+// ============================================================
+// 2. DARK / LIGHT THEME TOGGLE
+// ============================================================
+const themeToggle = document.getElementById('themeToggle');
+const themeToggleIcon = document.getElementById('themeToggleIcon');
+const html = document.documentElement;
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcons(savedTheme === 'dark');
+} else {
+    // Default: system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    updateThemeIcons(prefersDark);
+}
+
+function updateThemeIcons(isDark) {
+    const icon1 = themeToggle?.querySelector('i');
+    const icon2 = themeToggleIcon?.querySelector('i');
+    const label = themeToggle?.querySelector('span') || themeToggle;
+
+    if (icon1) {
+        icon1.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (icon2) {
+        icon2.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (themeToggle && themeToggle.querySelector('span')) {
+        themeToggle.querySelector('span').textContent = isDark ? ' Light Mode' : ' Dark Mode';
     }
 }
 
-// Chapter 6 Interactive Dynamic Elements: Architecture Selector
-const architectures = {
-    alex: "<strong>AlexNet (2012):</strong> Introduced deep convolutional networks utilizing ReLU activations, Dropout regularizations, and GPU acceleration to win ILSVRC.",
-    vgg: "<strong>VGG (2014):</strong> Proved that smaller filter sizing (3x3 convolutional kernels) stacked deeply yields superior performance over larger kernels.",
-    resnet: "<strong>ResNet (2015):</strong> Introduced Residual Blocks (skip connections) solving the exploding/vanishing gradient crisis across ultra-deep networks."
-};
+function toggleTheme() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcons(newTheme === 'dark');
+}
 
-document.getElementById('arch-selector').addEventListener('change', function() {
-    const selectedArch = this.value;
-    document.getElementById('arch-desc').innerHTML = architectures[selectedArch];
+if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+if (themeToggleIcon) themeToggleIcon.addEventListener('click', toggleTheme);
+
+// ============================================================
+// 3. ACTIVE NAV LINK HIGHLIGHTING (Scroll Spy)
+// ============================================================
+const sections = document.querySelectorAll('.chapter');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+function updateActiveLink() {
+    let currentSectionId = '';
+    const scrollPos = window.scrollY + 120; // offset for topbar
+
+    sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+            currentSectionId = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + currentSectionId) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Throttled scroll listener for performance
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            updateActiveLink();
+            ticking = false;
+        });
+        ticking = true;
+    }
 });
+
+// Run once on load
+window.addEventListener('load', updateActiveLink);
+
+// ============================================================
+// 4. SMOOTH CLOSE ON NAV LINK CLICK (Mobile)
+// ============================================================
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+        }
+        // Smooth scroll to section (browser handles anchor)
+        // But we'll let default behavior work.
+    });
+});
+
+// ============================================================
+// 5. KEYBOARD SHORTCUT: Ctrl+Shift+D for Dark Mode
+// ============================================================
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+        e.preventDefault();
+        toggleTheme();
+    }
+});
+
+console.log('✅ ML Notes loaded successfully!');
+console.log('💡 Press Ctrl+Shift+D to toggle dark/light mode.');
